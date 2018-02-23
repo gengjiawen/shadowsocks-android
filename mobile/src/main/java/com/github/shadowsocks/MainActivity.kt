@@ -90,16 +90,10 @@ class MainActivity : AppCompatActivity(), ShadowsocksConnection.Interface, Drawe
     }
 
     // UI
-    private lateinit var fab: ServiceButton
     internal lateinit var drawer: Drawer
     private var previousSelectedDrawer: Long = 0    // it's actually lateinit
 
     private var testCount = 0
-    private lateinit var statusText: TextView
-    private lateinit var txText: TextView
-    private lateinit var rxText: TextView
-    private lateinit var txRateText: TextView
-    private lateinit var rxRateText: TextView
 
     private val customTabsIntent by lazy {
         CustomTabsIntent.Builder()

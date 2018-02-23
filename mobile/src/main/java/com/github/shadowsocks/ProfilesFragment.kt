@@ -384,11 +384,11 @@ class ProfilesFragment : ToolbarFragment(), Toolbar.OnMenuItemClickListener {
             }
             R.id.action_export -> {
                 val profiles = ProfileManager.getAllProfiles()
-                val m = if (profiles != null) {
+                val exportMessage = if (profiles != null) {
                     clipboard.primaryClip = ClipData.newPlainText(null, profiles.joinToString("\n"))
                     R.string.action_export_msg
                 } else R.string.action_export_err
-                snackbar.snack(m)
+                snackbar.snack(exportMessage)
                 true
             }
             else -> false

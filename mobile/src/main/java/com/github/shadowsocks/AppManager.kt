@@ -34,7 +34,6 @@ import android.content.pm.PackageManager
 import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.os.Handler
-import android.support.design.widget.Snackbar
 import android.support.v4.app.TaskStackBuilder
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
@@ -44,12 +43,12 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.ImageView
 import android.widget.Switch
-import com.futuremind.recyclerviewfastscroll.FastScroller
 import com.futuremind.recyclerviewfastscroll.SectionTitleProvider
 import com.github.shadowsocks.App.Companion.app
 import com.github.shadowsocks.database.ProfileManager
 import com.github.shadowsocks.preference.DataStore
 import com.github.shadowsocks.utils.*
+import kotlinx.android.synthetic.main.layout_apps.*
 import java.util.concurrent.atomic.AtomicBoolean
 
 class AppManager : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
@@ -132,11 +131,6 @@ class AppManager : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
     }
 
     private lateinit var proxiedApps: HashSet<String>
-    private lateinit var toolbar: Toolbar
-    private lateinit var bypassSwitch: Switch
-    private lateinit var appListView: RecyclerView
-    private lateinit var fastScroller: FastScroller
-    private lateinit var loadingView: View
     private val appsLoading = AtomicBoolean()
     private val handler = Handler()
     private val clipboard by lazy { getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager }
@@ -176,9 +170,12 @@ class AppManager : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         }
     }
 
+    private lateinit var toolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.layout_apps)
+        toolbar = findViewById(R.id.toolbar)
         toolbar.setTitle(R.string.proxied_apps)
         toolbar.setNavigationIcon(theme.resolveResourceId(R.attr.homeAsUpIndicator))
         toolbar.setNavigationOnClickListener {
@@ -209,7 +206,6 @@ class AppManager : AppCompatActivity(), Toolbar.OnMenuItemClickListener {
         appListView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         appListView.itemAnimator = DefaultItemAnimator()
         appListView.adapter = AppsAdapter()
-        fastScroller = findViewById(R.id.fastscroller)
         fastScroller.setRecyclerView(appListView)
 
         instance = this
