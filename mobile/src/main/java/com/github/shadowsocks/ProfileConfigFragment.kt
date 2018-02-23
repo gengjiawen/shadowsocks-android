@@ -152,7 +152,7 @@ class ProfileConfigFragment : PreferenceFragmentCompatDividers(), Toolbar.OnMenu
         DataStore.dirty = true
         true
     } catch (exc: IllegalArgumentException) {
-        Snackbar.make(view!!, exc.localizedMessage, Snackbar.LENGTH_LONG).show()
+        view!!.snack(exc.localizedMessage)
         false
     }
 

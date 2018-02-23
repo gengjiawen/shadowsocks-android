@@ -183,7 +183,7 @@ class MainActivity : AppCompatActivity(), ShadowsocksConnection.Interface, Drawe
         if (testCount == id) app.handler.post {
             if (success) statusText.text = result else {
                 statusText.setText(R.string.connection_test_fail)
-                Snackbar.make(findViewById(R.id.snackbar), result, Snackbar.LENGTH_LONG).show()
+                snackbar.snack(result)
             }
         }
     }
